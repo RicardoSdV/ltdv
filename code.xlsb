@@ -1,0 +1,1 @@
+marginCall = ((-cashInAccount * marginRequirement) / (marginRequirement - 1)) / teslaShares
