@@ -6,4 +6,5 @@ Expirations = Tuple[str, ...]
 OptionChainYF = Tuple[DataFrame, DataFrame, Dict]
 OptionChainsYF = List[OptionChainYF]
 
-OptionChains = List[List[Union[Dict, Any]]]
+OptionChain = List[Union[Dict, Any]]
+OptionChains = List[OptionChain]  # 2 dicts, calls & puts

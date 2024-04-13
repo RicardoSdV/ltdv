@@ -1,17 +1,19 @@
 portfolios = {
     'Jaime': {
         "cash": -23038.52,
-        "shares": 440,
-        "option_ids_and_counts": {"TSLA240816C00005000": 6, "TSLA240816C00010000": 1, "TSLA240816C00015000": 1, "TSLA240920C00020000": 5}
-    },
-    'Jaime1': {
-        "cash": -23038.52,
-        "shares": 40,
-        "option_ids_and_counts": {"TSLA240816C00005000": 6, "TSLA240816C00010000": 1, "TSLA240816C00015000": 1, "TSLA240920C00020000": 5}
-    },
-    'Jaime2': {
-        "cash": -23038.52,
-        "shares": 4400,
-        "option_ids_and_counts": {"TSLA240816C00005000": 6, "TSLA240816C00010000": 1, "TSLA240816C00015000": 1, "TSLA240920C00020000": 5}
+        "share_count": 440,
+        'margin_call': None,
+        "option_ids_and_counts": {
+            "TSLA240621C00600000": {
+                'option_count': 1,
+                'last_bid_premium': -0.1,  # Doesn't need to be added by hand but exists
+            },
+            "TSLA240920C00560000": {'option_count': 2},
+            "TSLA250117C00350000": {'option_count': 1},
+            "TSLA250117C00610000": {'option_count': 2},
+            'TSLA251219C00390000': {'option_count': 1},
+            'TSLA260618C00420000': {'option_count': 1},
+        },
+        'total_options_value': -0.1  # Doesn't need to be added by hand but exists
     },
 }

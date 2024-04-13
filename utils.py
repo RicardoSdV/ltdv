@@ -1,15 +1,27 @@
+from json import dumps
+from typing import Dict, Any
+
 from settings import marginRequirement
-from my_types import OptionChains, Expirations
+from my_types import OptionChains, Expirations, OptionChain
 
 
-def calc_margin_call(cashInAccount: float, teslaShares: int) -> float:
-    return ((-cashInAccount * marginRequirement) / (marginRequirement - 1)) / teslaShares
+def calc_margin_call(cash: float, share_count: int) -> float:
+    return ((-cash * marginRequirement) / (marginRequirement - 1)) / share_count
 
-def calc_shares_opportunity_cost(marginCall: float, teslaSharePrice: float, teslaShares: int, cashInAccount: float, totalOpenOptionsValue: float):
-    mc = marginCall
+
+def _turn_to_str(_any: str) -> str:
+    return str(_any)
+
+
+def pretty_print(data: Any):
+    print(dumps(data, default=_turn_to_str, indent=4))
+
+
+def calc_share_opportunity_cost(margin_call: float, share_price: float, share_count: int, cashInAccount: float, totalOpenOptionsValue: float):
+    mc = margin_call
     mr = marginRequirement
-    tp = teslaSharePrice
-    ts = teslaShares
+    tp = share_price
+    ts = share_count
     ca = cashInAccount
     tov = totalOpenOptionsValue
 
@@ -17,14 +29,28 @@ def calc_shares_opportunity_cost(marginCall: float, teslaSharePrice: float, tesl
 
 
 def get_expiration_index(option_id: str, expirations: Expirations) -> int:
-    date = f'{option_id[:2]}20{option_id[2:4]}-{option_id[4:6]}'
+    # TSLA240816C00005000
+    date = f'20{option_id[4:6]}-{option_id[6:8]}-{option_id[8:10]}'
     return expirations.index(date)
 
 
+def get_option_index(my_option_id: str, symbols: Dict):
+    for index, option_id in symbols.items():
+        if my_option_id == option_id:
+            return index
 
 
-def calc_total_open_options_value(option_ids_and_counts, last_options: OptionChains, expirations: Expirations):
-    total_options_value = 0
-    for option_id, count in option_ids_and_counts.items():
-        option_value = count * 100 *
+def is_call(option_id: str) -> bool:
+    return option_id[10] == 'C'
 
+
+def get_option_bid_premium_by_index(index: int, options: Dict) -> float:
+    return options['bid'][index]
+
+
+def set_option_premium_by_id(option_id: str, bid_premium: float, option_ids_and_counts) -> None:
+    option_ids_and_counts[option_id]['last_bid_premium'] = bid_premium
+
+
+def calc_total_option_value(count: int, premium: float) -> float:
+    return count * 100 * premium

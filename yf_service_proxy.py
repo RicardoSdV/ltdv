@@ -1,5 +1,5 @@
 from json import dumps
-from typing import Optional
+from typing import Optional, Any
 
 from pandas import DataFrame
 from schedule import Scheduler
@@ -8,11 +8,9 @@ from yfinance import Ticker
 from my_types import OptionChains, Expirations, OptionChainsYF
 
 
-def _turn_to_str(_any: str) -> str:
-    return str(_any)
 
-def pretty_print(data: OptionChains):
-    print(dumps(data, default=_turn_to_str, indent=4))
+
+
 
 
 class YFserviceProxy:
